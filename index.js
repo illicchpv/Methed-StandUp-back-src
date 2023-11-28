@@ -24,7 +24,11 @@ const startServer = async (port) => {
   http
     .createServer(async (req, res) => {
       try {
-        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader("Access-Control-Allow-Origin", "*")
+        res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, OPTIONS")
+        res.setHeader("Access-Control-Allow-Headers", "content-type")
+
+        console.log('method:', req.method, 'url:', req.url)
 
         const segments = req.url.split("/").filter(Boolean);
 
@@ -45,7 +49,11 @@ const startServer = async (port) => {
           return;
         }
 
-        if (req.method === "GET" && resource === "clients" && id) {
+        // if (req.method === "GET" &&  resource === "clients" && id) {
+        //   handleClientsRequest(req, res, id);
+        //   return;
+        // }
+        if (req.method === "GET" &&  resource === "clients") {
           handleClientsRequest(req, res, id);
           return;
         }

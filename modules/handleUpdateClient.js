@@ -3,7 +3,7 @@ import { readRequestBody } from "./helpers.js";
 import { sendData, sendError } from "./send.js";
 import fs from "node:fs/promises";
 
-export const handleUpdateClient = async (req, res, ticketNumber) => {
+export const handleUpdateClient = async (req, res, ticket) => {
   try {
     const body = await readRequestBody(req);
     const updateDataClient = JSON.parse(body);
@@ -11,7 +11,7 @@ export const handleUpdateClient = async (req, res, ticketNumber) => {
     if (
       !updateDataClient.fullName ||
       !updateDataClient.phone ||
-      !updateDataClient.ticketNumber ||
+      !updateDataClient.ticket ||
       !updateDataClient.booking
     ) {
       sendError(res, 400, "Неверные основные данные клиента");
@@ -32,7 +32,7 @@ export const handleUpdateClient = async (req, res, ticketNumber) => {
     const clients = JSON.parse(clientData);
 
     const clientIndex = clients.findIndex(
-      (c) => c.ticketNumber === ticketNumber,
+      (c) => c.ticket === ticket,
     );
 
     if (clientIndex === -1) {
@@ -44,7 +44,7 @@ export const handleUpdateClient = async (req, res, ticketNumber) => {
       ...updateDataClient,
     };
 
-    await fs.writeFile(CLIENTS, JSON.stringify(clients));
+    await fs.writeFile(CLIENTS, JSON.stringify(clients, false, 2));
     sendData(res, clients[clientIndex]);
   } catch (error) {
     console.error(`error: ${error}`);

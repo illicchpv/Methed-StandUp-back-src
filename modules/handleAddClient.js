@@ -11,7 +11,7 @@ export const handleAddClient = async (req, res) => {
     if (
       !newClient.fullName ||
       !newClient.phone ||
-      !newClient.ticketNumber ||
+      !newClient.ticket ||
       !newClient.booking
     ) {
       sendError(res, 400, "Неверные основные данные клиента");
@@ -33,7 +33,7 @@ export const handleAddClient = async (req, res) => {
 
     clients.push(newClient);
 
-    await fs.writeFile(CLIENTS, JSON.stringify(clients));
+    await fs.writeFile(CLIENTS, JSON.stringify(clients, false, 2));
     sendData(res, newClient);
   } catch (error) {
     console.trace(error);

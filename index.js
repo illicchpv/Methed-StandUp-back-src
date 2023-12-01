@@ -30,6 +30,12 @@ const startServer = async (port) => {
 
         console.log('method:', req.method, 'url:', req.url)
 
+        if(req.method === 'OPTIONS'){
+          res.writeHead(204) // 204 - No Content
+          res.end()
+          return
+        }
+
         const segments = req.url.split("/").filter(Boolean);
 
         if (!segments.length) {

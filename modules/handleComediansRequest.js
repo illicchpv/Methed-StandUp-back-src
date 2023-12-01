@@ -5,12 +5,10 @@ export const handleComediansRequest = async (req, res, comedians, id) => {
     const comedian = comedians.find((c) => c.id === id);
 
     if (!comedian) {
-      sendError(res, 404, "Stand up комик не найден");
-      return;
+      return sendError(res, 404, "Stand up комик не найден");
     }
 
-    sendData(res, comedian);
-    return;
+    return sendData(res, comedian);
   }
 
   sendData(res, comedians);

@@ -14,8 +14,7 @@ export const handleAddClient = async (req, res) => {
       !newClient.ticket ||
       !newClient.booking
     ) {
-      sendError(res, 400, "Неверные основные данные клиента");
-      return;
+      return sendError(res, 400, "Неверные основные данные клиента");
     }
 
     if (
@@ -24,8 +23,7 @@ export const handleAddClient = async (req, res) => {
         !Array.isArray(newClient.booking) ||
         !newClient.booking.every((item) => item.comedian && item.time))
     ) {
-      sendError(res, 400, "Неверно заполнены поля бронирования");
-      return;
+      return sendError(res, 400, "Неверно заполнены поля бронирования");
     }
 
     const clientData = await fs.readFile(CLIENTS, "utf8");

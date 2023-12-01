@@ -14,8 +14,7 @@ export const handleUpdateClient = async (req, res, ticket) => {
       !updateDataClient.ticket ||
       !updateDataClient.booking
     ) {
-      sendError(res, 400, "Неверные основные данные клиента");
-      return;
+      return sendError(res, 400, "Неверные основные данные клиента");
     }
 
     if (
@@ -24,8 +23,7 @@ export const handleUpdateClient = async (req, res, ticket) => {
         !Array.isArray(updateDataClient.booking) ||
         !updateDataClient.booking.every((item) => item.comedian && item.time))
     ) {
-      sendError(res, 400, "Неверно заполнены поля бронирования");
-      return;
+      return sendError(res, 400, "Неверно заполнены поля бронирования");
     }
 
     const clientData = await fs.readFile(CLIENTS, "utf8");
@@ -36,13 +34,14 @@ export const handleUpdateClient = async (req, res, ticket) => {
     );
 
     if (clientIndex === -1) {
-      sendError(res, 404, "Клиент с данныи номером билета не найден");
+      return sendError(res, 404, "Клиент с данныи номером билета не найден");
     }
 
-    clients[clientIndex] = {
-      ...clients[clientIndex],
-      ...updateDataClient,
-    };
+    // clients[clientIndex] = {
+    //     ...clients[clientIndex],
+    //     ...updateClient,
+    // }
+    Object.assign(clients[clientIndex], updateClient) // или так \ более понятно
 
     await fs.writeFile(CLIENTS, JSON.stringify(clients, false, 2));
     sendData(res, clients[clientIndex]);

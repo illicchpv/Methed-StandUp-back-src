@@ -14,8 +14,7 @@ export const handleClientsRequest = async (req, res, ticket) => {
     const client = clients.find((c) => c.ticket === ticket);
 
     if (!client) {
-      sendError(res, 404, "Клиент с данным номером билета отсутвует");
-      return;
+      return sendError(res, 404, "Клиент с данным номером билета отсутвует");
     }
 
     sendData(res, client);

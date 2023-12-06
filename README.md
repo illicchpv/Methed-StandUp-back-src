@@ -5,7 +5,7 @@
 - `GET /comedians`: Получение всех 
 - `GET /comedians/3`: Получение конкретного по id 
 - `GET /clients`: Получение всех бронирований 
-- `GET /clients/777777777`: Получение конкретного клиента по ticket
+- `PATCH /clients/777777777`: редактирование брони по ticket
 - `POST /clients`: Добавление клиента 
 ```json
 body:

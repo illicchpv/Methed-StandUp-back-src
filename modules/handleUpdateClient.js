@@ -39,9 +39,9 @@ export const handleUpdateClient = async (req, res, ticket) => {
 
     // clients[clientIndex] = {
     //     ...clients[clientIndex],
-    //     ...updateClient,
+    //     ...updateDataClient,
     // }
-    Object.assign(clients[clientIndex], updateClient) // или так \ более понятно
+    Object.assign(clients[clientIndex], updateDataClient) // или так \ более понятно
 
     await fs.writeFile(CLIENTS, JSON.stringify(clients, false, 2));
     sendData(res, clients[clientIndex]);
